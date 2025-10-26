@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { PanelLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Finance AI Advisor',
+  title: 'MoneyWizard',
   description: 'AI-powered financial education and investment guidance.',
 };
 
