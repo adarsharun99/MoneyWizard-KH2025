@@ -34,8 +34,8 @@ export function StockTicker() {
     const tickerItems = [...holdings, ...holdings];
 
     return (
-        <div className="relative flex overflow-x-hidden">
-            <div className="flex animate-marquee whitespace-nowrap">
+        <div className="flex overflow-x-hidden whitespace-nowrap">
+            <div className="flex animate-marquee">
                 {tickerItems.map((stock, index) => (
                     <div key={index} className="mx-4 flex items-center gap-2 text-sm">
                         <span className="font-semibold text-muted-foreground">{stock.symbol}</span>
@@ -48,7 +48,7 @@ export function StockTicker() {
                     </div>
                 ))}
             </div>
-             <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap">
+             <div className="flex animate-marquee2">
                 {tickerItems.map((stock, index) => (
                     <div key={index} className="mx-4 flex items-center gap-2 text-sm">
                         <span className="font-semibold text-muted-foreground">{stock.symbol}</span>
