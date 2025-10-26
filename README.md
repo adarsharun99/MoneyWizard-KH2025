@@ -1,5 +1,3 @@
-# Firebase Studio
+# MoneyWizard
 
-This is a NextJS starter in Firebase Studio.
-
-To get started, take a look at src/app/page.tsx.
+Investing money and stock market information made so easy it feels like magic!
