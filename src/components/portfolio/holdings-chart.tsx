@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Pie, PieChart, ResponsiveContainer, Cell, Tooltip, Legend } from 'recharts';
-import { holdingsData } from '@/lib/data';
+import type { Holding } from '@/lib/data';
 import {
   ChartConfig,
   ChartContainer,
@@ -11,23 +11,45 @@ import {
   ChartLegendContent,
   ChartLegend,
 } from '@/components/ui/chart';
+import { Skeleton } from '../ui/skeleton';
 
-const chartConfig = {
-  value: {
-    label: 'Holdings',
-  },
-  ...Object.fromEntries(
-    holdingsData.map((holding, i) => [
-      holding.name, // Use name as the key for consistency
-      { label: holding.name, color: `hsl(var(--chart-${i + 1}))` },
-    ])
-  ),
-} satisfies ChartConfig;
+interface HoldingsChartProps {
+  holdings: Holding[] | null;
+}
 
-export function HoldingsChart() {
+const generateChartConfig = (holdings: Holding[] | null): ChartConfig => {
+    if (!holdings) return { value: { label: 'Holdings' } };
+    
+    const config: ChartConfig = {
+      value: {
+        label: 'Holdings',
+      },
+      ...Object.fromEntries(
+        holdings.map((holding, i) => [
+          holding.name,
+          { label: holding.name, color: `hsl(var(--chart-${i + 1}))` },
+        ])
+      ),
+    };
+    return config;
+};
+
+export function HoldingsChart({ holdings }: HoldingsChartProps) {
+  
+  const chartConfig = React.useMemo(() => generateChartConfig(holdings), [holdings]);
+
   const totalValue = React.useMemo(() => {
-    return holdingsData.reduce((acc, curr) => acc + curr.value, 0);
-  }, []);
+    if (!holdings) return 0;
+    return holdings.reduce((acc, curr) => acc + curr.value, 0);
+  }, [holdings]);
+
+  if (!holdings) {
+    return (
+        <div className="flex justify-center items-center h-[300px] w-full">
+            <Skeleton className="h-[250px] w-[250px] rounded-full" />
+        </div>
+    )
+  }
 
   return (
     <ChartContainer
@@ -55,13 +77,13 @@ export function HoldingsChart() {
             }
           />
           <Pie
-            data={holdingsData}
+            data={holdings}
             dataKey="value"
             nameKey="name"
             innerRadius={60}
             strokeWidth={5}
           >
-            {holdingsData.map((entry) => (
+            {holdings.map((entry) => (
               <Cell 
                 key={`cell-${entry.name}`} 
                 fill={chartConfig[entry.name]?.color} 

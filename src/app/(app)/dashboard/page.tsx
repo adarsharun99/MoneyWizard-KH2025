@@ -4,8 +4,37 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, TrendingUp, Target } from "lucide-react";
 import { InvestmentChart } from "@/components/dashboard/investment-chart";
 import { HoldingsTable } from "@/components/dashboard/holdings-table";
+import { useEffect, useState } from "react";
+import type { Holding } from "@/lib/data";
+import { getStockData } from "@/app/actions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
+  const [holdings, setHoldings] = useState<Holding[] | null>(null);
+  const [totals, setTotals] = useState({
+    totalValue: 0,
+    totalGainLoss: 0,
+    monthlyChange: 0.20, // Static for now
+  });
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getStockData();
+      if ('error' in data) {
+        console.error(data.error);
+        setHoldings([]); // Set to empty array on error
+      } else {
+        setHoldings(data);
+        // Calculate totals
+        const totalValue = data.reduce((acc, h) => acc + h.value, 0);
+        const initialInvestment = 10000; // Example initial investment
+        const totalGainLoss = totalValue - initialInvestment;
+        setTotals(prev => ({ ...prev, totalValue, totalGainLoss }));
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col gap-4 md:gap-8">
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
@@ -17,10 +46,19 @@ export default function DashboardPage() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$12,000.00</div>
-            <p className="text-xs text-muted-foreground">
-              +20% from last month
-            </p>
+            {holdings ? (
+              <>
+                <div className="text-2xl font-bold">${totals.totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                <p className="text-xs text-muted-foreground">
+                  +{totals.monthlyChange * 100}% from last month
+                </p>
+              </>
+            ) : (
+                <>
+                    <Skeleton className="h-8 w-3/4 mb-2" />
+                    <Skeleton className="h-4 w-1/2" />
+                </>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -31,10 +69,21 @@ export default function DashboardPage() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">+$2,000.00</div>
-            <p className="text-xs text-muted-foreground">
-              Since initial investment
-            </p>
+            {holdings ? (
+              <>
+                <div className={`text-2xl font-bold ${totals.totalGainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {totals.totalGainLoss >= 0 ? '+' : ''}${totals.totalGainLoss.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Since initial investment
+                </p>
+              </>
+            ) : (
+                <>
+                    <Skeleton className="h-8 w-3/4 mb-2" />
+                    <Skeleton className="h-4 w-1/2" />
+                </>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -59,7 +108,7 @@ export default function DashboardPage() {
             <InvestmentChart />
           </CardContent>
         </Card>
-        <HoldingsTable />
+        <HoldingsTable holdings={holdings} />
       </div>
     </div>
   );

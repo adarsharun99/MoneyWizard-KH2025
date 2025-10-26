@@ -21,6 +21,7 @@ import {
   type FinancialAdviceInput,
   type FinancialAdviceOutput,
 } from '@/ai/flows/financial-advice-chatbot';
+import { getSimulatedStockData, type StockDataOutput } from '@/ai/flows/stock-price-simulator';
 import { z } from 'zod';
 
 const handleAIError = (error: unknown) => {
@@ -67,6 +68,16 @@ export async function fetchFinancialAdvice(
 ): Promise<FinancialAdviceOutput | { error: string }> {
   try {
     const result = await getFinancialAdvice(input);
+    return result;
+  } catch (error)
+ {
+    return handleAIError(error);
+  }
+}
+
+export async function getStockData(): Promise<StockDataOutput | { error: string }> {
+  try {
+    const result = await getSimulatedStockData();
     return result;
   } catch (error) {
     return handleAIError(error);

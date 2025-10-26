@@ -9,7 +9,16 @@ export const investmentData = [
   { name: 'Jul', value: 12000 },
 ];
 
-export const holdingsData = [
+export type Holding = {
+  id: string;
+  name: string;
+  symbol: string;
+  value: number;
+  change: string;
+  shares: number;
+};
+
+export const holdingsData: Holding[] = [
   { id: '1', name: 'Alphabet Inc Class C', symbol: 'GOOG', value: 5250.75, change: '+1.82%', shares: 30.00 },
   { id: '2', name: 'NextEra Energy Inc', symbol: 'NEE', value: 3100.20, change: '+0.31%', shares: 42.50 },
   { id: '3', name: 'Eli Lilly And Co', symbol: 'LLY', value: 2800.50, change: '-0.45%', shares: 3.20 },
