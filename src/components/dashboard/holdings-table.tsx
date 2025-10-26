@@ -31,6 +31,7 @@ export function HoldingsTable() {
           <TableHeader>
             <TableRow>
               <TableHead>Asset</TableHead>
+              <TableHead className="text-right">Shares</TableHead>
               <TableHead className="text-right">Value</TableHead>
               <TableHead className="text-right">24h Change</TableHead>
             </TableRow>
@@ -44,6 +45,7 @@ export function HoldingsTable() {
                     {holding.symbol}
                   </div>
                 </TableCell>
+                <TableCell className="text-right">{holding.shares.toFixed(2)}</TableCell>
                 <TableCell className="text-right">${holding.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
                 <TableCell
                   className={cn(

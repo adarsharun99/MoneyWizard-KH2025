@@ -10,10 +10,10 @@ export const investmentData = [
 ];
 
 export const holdingsData = [
-  { id: '1', name: 'Alphabet Inc Class C', symbol: 'GOOG', value: 5250.75, change: '+1.82%' },
-  { id: '2', name: 'NextEra Energy Inc', symbol: 'NEE', value: 3100.20, change: '+0.31%' },
-  { id: '3', name: 'Eli Lilly And Co', symbol: 'LLY', value: 2800.50, change: '-0.45%' },
-  { id: '4', name: 'Prologis Inc', symbol: 'PLD', value: 1850.90, change: '-1.10%' },
+  { id: '1', name: 'Alphabet Inc Class C', symbol: 'GOOG', value: 5250.75, change: '+1.82%', shares: 30.00 },
+  { id: '2', name: 'NextEra Energy Inc', symbol: 'NEE', value: 3100.20, change: '+0.31%', shares: 42.50 },
+  { id: '3', name: 'Eli Lilly And Co', symbol: 'LLY', value: 2800.50, change: '-0.45%', shares: 3.20 },
+  { id: '4', name: 'Prologis Inc', symbol: 'PLD', value: 1850.90, change: '-1.10%', shares: 16.80 },
 ];
 
 export type Goal = {
