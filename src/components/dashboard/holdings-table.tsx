@@ -44,7 +44,7 @@ export function HoldingsTable() {
                     {holding.symbol}
                   </div>
                 </TableCell>
-                <TableCell className="text-right">${holding.value.toFixed(2)}</TableCell>
+                <TableCell className="text-right">${holding.value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
                 <TableCell
                   className={cn(
                     'text-right',
