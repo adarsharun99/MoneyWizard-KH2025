@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -8,7 +9,17 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { StockDataOutputSchema } from './stock-price-simulator';
+
+export const StockDataOutputSchema = z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    symbol: z.string(),
+    value: z.number(),
+    change: z.string(),
+    shares: z.number(),
+}));
+export type StockDataOutput = z.infer<typeof StockDataOutputSchema>;
+
 
 const StockDiscoveryInputSchema = z.object({
   currentHoldings: StockDataOutputSchema,

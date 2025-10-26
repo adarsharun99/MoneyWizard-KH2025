@@ -10,19 +10,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import { holdingsData } from '@/lib/data';
-
-export const StockDataOutputSchema = z.array(z.object({
-    id: z.string(),
-    name: z.string(),
-    symbol: z.string(),
-    value: z.number(),
-    change: z.string(),
-    shares: z.number(),
-}));
-
-export type StockDataOutput = z.infer<typeof StockDataOutputSchema>;
+import type { StockDataOutput } from '@/ai/flows/stock-discovery';
 
 export async function getSimulatedStockData(): Promise<StockDataOutput> {
     return stockPriceSimulatorFlow();
@@ -31,9 +20,8 @@ export async function getSimulatedStockData(): Promise<StockDataOutput> {
 const stockPriceSimulatorFlow = ai.defineFlow(
   {
     name: 'stockPriceSimulatorFlow',
-    outputSchema: StockDataOutputSchema,
   },
-  async () => {
+  async (): Promise<StockDataOutput> => {
     // Simulate API call latency
     await new Promise(resolve => setTimeout(resolve, 500));
 
