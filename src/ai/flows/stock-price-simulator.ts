@@ -11,7 +11,9 @@
 
 import { ai } from '@/ai/genkit';
 import { holdingsData } from '@/lib/data';
-import type { StockDataOutput } from '@/ai/flows/stock-discovery';
+import type { StockDataOutput } from '@/ai/types';
+import { z } from 'zod';
+import { StockDataOutputSchema } from '@/ai/types';
 
 export async function getSimulatedStockData(): Promise<StockDataOutput> {
     return stockPriceSimulatorFlow();
@@ -20,6 +22,7 @@ export async function getSimulatedStockData(): Promise<StockDataOutput> {
 const stockPriceSimulatorFlow = ai.defineFlow(
   {
     name: 'stockPriceSimulatorFlow',
+    outputSchema: StockDataOutputSchema,
   },
   async (): Promise<StockDataOutput> => {
     // Simulate API call latency
