@@ -19,6 +19,7 @@ import {
   updateProfile,
   GoogleAuthProvider,
   signInWithPopup,
+  User,
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
@@ -47,16 +48,23 @@ export function SignupForm() {
     defaultValues: { name: '', email: '', password: '' },
   });
 
-  const createUserProfile = async (user: any) => {
-    if (!firestore) return;
+  const createUserProfile = (user: User) => {
+    if (!firestore || !user) return;
     const userRef = doc(firestore, 'users', user.uid);
-    await setDoc(userRef, {
+    const userProfileData = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
         createdAt: serverTimestamp(),
-    }, { merge: true });
+    };
+    
+    // Non-blocking write with error handling
+    setDoc(userRef, userProfileData, { merge: true }).catch((error) => {
+      console.error("Error creating user profile:", error);
+      // In a real app with advanced error handling, you might emit this error
+      // to a centralized listener, but for now, console.error is sufficient.
+    });
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -65,7 +73,15 @@ export function SignupForm() {
       if (!auth) throw new Error('Auth not initialized');
       const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
       await updateProfile(userCredential.user, { displayName: values.name });
-      await createUserProfile({ ...userCredential.user, displayName: values.name });
+      
+      // We need to reload the user to get the updated displayName
+      await userCredential.user.reload();
+      const updatedUser = auth.currentUser;
+
+      if (updatedUser) {
+        createUserProfile(updatedUser);
+      }
+      
       router.push('/dashboard');
     } catch (error: any) {
       toast({
@@ -84,7 +100,7 @@ export function SignupForm() {
       if (!auth) throw new Error('Auth not initialized');
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      await createUserProfile(result.user);
+      createUserProfile(result.user);
       router.push('/dashboard');
     } catch (error: any) {
        toast({
