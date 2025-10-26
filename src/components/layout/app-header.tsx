@@ -5,7 +5,7 @@ import { StockTicker } from "./stock-ticker";
 export function AppHeader() {
   return (
     <>
-      <div className="w-full flex-1 overflow-hidden">
+      <div className="w-full flex-1 overflow-x-hidden">
         <StockTicker />
       </div>
       <UserNav />
