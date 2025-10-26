@@ -19,10 +19,14 @@ export type Holding = {
 };
 
 export const holdingsData: Holding[] = [
-  { id: '1', name: 'Alphabet Inc Class C', symbol: 'GOOG', value: 5250.75, change: '+1.82%', shares: 30.00 },
-  { id: '2', name: 'NextEra Energy Inc', symbol: 'NEE', value: 3100.20, change: '+0.31%', shares: 42.50 },
-  { id: '3', name: 'Eli Lilly And Co', symbol: 'LLY', value: 2800.50, change: '-0.45%', shares: 3.20 },
-  { id: '4', name: 'Prologis Inc', symbol: 'PLD', value: 1850.90, change: '-1.10%', shares: 16.80 },
+  { id: '1', name: 'Apple Inc.', symbol: 'AAPL', value: 8650.40, change: '+1.25%', shares: 40.00 },
+  { id: '2', name: 'Microsoft Corp.', symbol: 'MSFT', value: 12400.80, change: '+0.75%', shares: 30.00 },
+  { id: '3', name: 'Amazon.com, Inc.', symbol: 'AMZN', value: 9200.00, change: '-0.50%', shares: 50.00 },
+  { id: '4', name: 'NVIDIA Corp.', symbol: 'NVDA', value: 15300.25, change: '+2.80%', shares: 125.00 },
+  { id: '5', name: 'Tesla, Inc.', symbol: 'TSLA', value: 7300.60, change: '-2.10%', shares: 42.00 },
+  { id: '6', name: 'Alphabet Inc. Class A', symbol: 'GOOGL', value: 10500.00, change: '+1.15%', shares: 60.00 },
+  { id: '7', name: 'Berkshire Hathaway B', symbol: 'BRK.B', value: 6150.90, change: '+0.20%', shares: 15.00 },
+  { id: '8', name: 'UnitedHealth Group', symbol: 'UNH', value: 4900.75, change: '-0.85%', shares: 10.00 },
 ];
 
 export type Goal = {
