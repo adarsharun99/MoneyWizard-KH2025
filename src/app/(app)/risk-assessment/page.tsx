@@ -14,13 +14,13 @@ export default function RiskAssessmentPage() {
   return (
     <Tabs defaultValue="assessment" className="space-y-4">
       <TabsList>
-        <TabsTrigger value="assessment">Risk Assessment</TabsTrigger>
+        <TabsTrigger value="assessment">Preferences</TabsTrigger>
         <TabsTrigger value="recommendation">Get Recommendation</TabsTrigger>
       </TabsList>
       <TabsContent value="assessment">
         <Card>
           <CardHeader>
-            <CardTitle>Investment Risk Assessment</CardTitle>
+            <CardTitle>Investment Preferences</CardTitle>
             <CardDescription>
               Answer a few questions to help us understand your risk tolerance.
             </CardDescription>
