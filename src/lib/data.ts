@@ -1,3 +1,4 @@
+
 export const investmentData = [
   { name: 'Jan', value: 10000 },
   { name: 'Feb', value: 10500 },
@@ -45,4 +46,20 @@ export const goalsData: Goal[] = [
     currentAmount: 15000,
     deadline: '2024-12-31',
   },
+];
+
+export type Lesson = {
+  id: number;
+  title: string;
+  description: string;
+  status: 'completed' | 'unlocked' | 'locked';
+};
+
+export const stockMarketLessons: Lesson[] = [
+    { id: 1, title: 'Intro to Stocks', description: 'Learn the basics of what a stock represents and why companies issue them.', status: 'completed' },
+    { id: 2, title: 'The Stock Market', description: 'Understand how the stock market works, including exchanges and indices.', status: 'completed' },
+    { id: 3, title: 'Your First Investment', description: 'A step-by-step guide to buying your first stock.', status: 'unlocked' },
+    { id: 4, title: 'Reading Stock Charts', description: 'An introduction to technical analysis and chart patterns.', status: 'locked' },
+    { id: 5, title: 'Diversification & ETFs', description: 'Learn why you shouldn\'t put all your eggs in one basket.', status: 'locked' },
+    { id: 6, title: 'Advanced Strategies', description: 'Explore concepts like options and short-selling.', status: 'locked' },
 ];
