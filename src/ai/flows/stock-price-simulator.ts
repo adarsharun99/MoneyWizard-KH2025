@@ -10,10 +10,10 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import { holdingsData } from '@/lib/data';
 
-const StockDataOutputSchema = z.array(z.object({
+export const StockDataOutputSchema = z.array(z.object({
     id: z.string(),
     name: z.string(),
     symbol: z.string(),

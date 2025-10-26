@@ -22,6 +22,7 @@ import {
   type FinancialAdviceOutput,
 } from '@/ai/flows/financial-advice-chatbot';
 import { getSimulatedStockData, type StockDataOutput } from '@/ai/flows/stock-price-simulator';
+import { discoverStocks, type StockDiscoveryInput, type StockDiscoveryOutput } from '@/ai/flows/stock-discovery';
 import { z } from 'zod';
 
 const handleAIError = (error: unknown) => {
@@ -82,4 +83,15 @@ export async function getStockData(): Promise<StockDataOutput | { error: string 
   } catch (error) {
     return handleAIError(error);
   }
+}
+
+export async function discoverNewStocks(
+    input: StockDiscoveryInput
+): Promise<StockDiscoveryOutput | { error: string }> {
+    try {
+        const result = await discoverStocks(input);
+        return result;
+    } catch (error) {
+        return handleAIError(error);
+    }
 }
