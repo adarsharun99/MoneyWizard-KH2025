@@ -5,15 +5,6 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // import { firebaseConfig } from './config';
-import {
-  useFirebase,
-  useFirebaseApp,
-  useFirestore,
-  useAuth,
-} from './provider';
-
-import { useCollection } from './firestore/use-collection';
-import { useDoc } from './firestore/use-doc';
 
 function initializeFirebase() {
   const apps = getApps();
@@ -28,12 +19,4 @@ function initializeFirebase() {
 
 export {
   initializeFirebase,
-  useFirebase,
-  useFirebaseApp,
-  useFirestore,
-  useAuth,
-  useCollection,
-  useDoc,
 };
-
-export { FirebaseProvider } from './provider';
