@@ -1,4 +1,4 @@
-# **App Name**: Finance AI Advisor
+# **App Name**: MoneyWizard.work
 
 ## Core Features:
 
